@@ -1,0 +1,164 @@
+# Basic Tyk Gateway configuration for running locally
+
+nameOverride: ""
+fullnameOverride: ""
+
+operatorSecret:
+  enabled: true
+  orgID: "orgid"
+
+global:
+  components:
+    pump: false
+    operator: false
+
+  servicePorts:
+    gateway: 8080
+
+  tls:
+    gateway: false
+    useDefaultTykCertificate: true
+
+  secrets:
+    useSecretName: "tyk-secret"
+
+  redis:
+    addrs:
+      - tyk-redis-master.tyk.svc.cluster.local:6379
+
+    passSecret:
+      name: "tyk-redis"
+      keyName: "redis-password"
+
+    storage:
+      database: 0
+
+  hashKeys: true
+
+  oasValidateExamples: false
+  oasValidateSchemaDefaults: false
+
+tyk-gateway:
+  nameOverride: ""
+  fullnameOverride: ""
+
+  gateway:
+    hostName: tyk-gw.local
+    enableFixedWindowRateLimiter: false
+
+    tls:
+      secretName: tyk-default-tls-secret
+      insecureSkipVerify: false
+
+      certificatesMountPath: "/etc/certs/tyk-gateway"
+      certificates:
+        - domain_name: "*"
+          cert_file: "/etc/certs/tyk-gateway/tls.crt"
+          key_file: "/etc/certs/tyk-gateway/tls.key"
+
+    kind: Deployment
+    podAnnotations: {}
+    podLabels: {}
+    replicaCount: 1
+    pdb:
+      enabled: false
+      minAvailable: ""
+      maxUnavailable: ""
+    autoscaling: {}
+
+    image:
+      repository: docker.tyk.io/tyk-gateway/tyk-gateway
+      tag: v5.5.0
+
+      # image pull policy for Tyk Gateway
+      pullPolicy: IfNotPresent
+
+    initContainers:
+      setupDirectories:
+        repository: busybox
+        tag: 1.32
+        resources: {}
+
+    imagePullSecrets: []
+
+    containerPort: 8080
+
+    service:
+      type: ClusterIP
+      externalTrafficPolicy: Local
+      annotations: {}
+
+    control:
+      enabled: false
+      containerPort: 9696
+      port: 9696
+      type: ClusterIP
+      annotations: {}
+
+      ingress:
+        enabled: false
+        className: ""
+        annotations: {}
+
+        hosts:
+          - host: tyk-control.local
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls: []
+
+    ingress:
+      enabled: false
+      className: ""
+      annotations: {}
+      hosts:
+        - host: chart-example.local
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls: []
+
+    resources: {}
+
+    securityContext:
+      runAsUser: 1000
+      fsGroup: 2000
+      runAsNonRoot: true
+
+    containerSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      privileged: false
+      readOnlyRootFilesystem: true
+      seccompProfile:
+        type: RuntimeDefault
+      capabilities:
+        drop:
+          - ALL
+
+    nodeSelector: {}
+
+    tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+
+    affinity: {}
+
+    analyticsEnabled: ""
+
+    opentelemetry:
+      enabled: false
+
+    # extraEnvs is used to set gateway env variables
+    extraEnvs:
+      - name: TYK_GW_LOGLEVEL
+        value: "debug"
+      - name: TYK_GW_HTTPSERVEROPTIONS_ENABLEHTTP2
+        value: "true"
+      - name: TYK_GW_PROXYENABLEHTTP2
+        value: "true"
+
+    extraVolumes: []
+    extraVolumeMounts: []
+
