@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "versioning"
+version = "1.0.0"
+description = "An API to test versioning with Tyk"
+authors = ["Jeff Espenschied <jeffrey.espenschied@datarobot.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = {extras = ["standard"], version = "^0.115.0"}
+uvicorn = {extras = ["standard"], version = "^0.30.6"}
+
+
+[tool.poetry.group.dev.dependencies]
+docker = "^7.1.0"
+jupyter = "^1.1.1"
+requests = "^2.32.3"
+kubernetes = "^31.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

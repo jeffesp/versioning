@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: http-jokes
+  labels:
+    app: http-jokes
+    app.kubernetes.io/name: jokes-service-jokes-service
+    app.kubernetes.io/instance: jokes-test
+    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/component: http-jokes
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: "TCP"
+      name: http-jokes
+  selector:
+    role: http-jokes-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-jokes-service
+  labels:
+    role: http-jokes-app
+    app: http-jokes
+    release: http-jokes-test
+    app.kubernetes.io/name: http-jokes-app
+    app.kubernetes.io/instance: http-jokes-test
+    app.kubernetes.io/version: 0.0.1
+    app.kubernetes.io/component: http-jokes
+spec:
+  selector:
+    matchLabels:
+      role: http-jokes-app
+      release: http-jokes-test
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: http-jokes-app
+        app: http-jokes
+        release: http-jokes-test
+        app.kubernetes.io/name: http-jokes-app
+        app.kubernetes.io/instance: http-jokes-test
+        app.kubernetes.io/version: 0.0.1
+        app.kubernetes.io/component: http-jokes
+    spec:
+      containers:
+        - name: http-jokes-app
+          image: localhost:5001/http-jokes:1.0.0
+          imagePullPolicy: Always
+          ports:
+            - name: "app"
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: "2"
+              memory: 2Gi
+            requests:
+              cpu: 100m
+              memory: 1Gi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      restartPolicy: Always
