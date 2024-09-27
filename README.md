@@ -2,7 +2,7 @@
 
 Example versioning with Tyk
 
-I wrote a small FastAPI service that has 3 endpoint, each with a different version number. The first version (v1) has a single endpoint, v2 has one more, and v2.1 has the third. If you run the service with `poetry fastapi dev app/main.py` you will be able to access these endpoints in at http://localhost:8000/v1.0/, &hellip;v2.0, and &hellip;v2.1. Playing with that API a tiny bit will help you understand what Tyk is doing in front of it.
+I wrote a small FastAPI service that has 3 endpoint, each with a different version number. The first version (v1) has a single endpoint, v2 has one more, and v2.1 has the third. If you run the service with `poetry run fastapi dev app/main.py` you will be able to access these endpoints in at http://localhost:8000/v1.0/, &hellip;v2.0, and &hellip;v2.1. Playing with that API a tiny bit will help you understand what Tyk is doing in front of it.
 
 ## Setup
 
