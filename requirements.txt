@@ -22,6 +22,12 @@ email-validator==2.2.0 ; python_version >= "3.12" and python_version < "4.0" \
 fastapi-cli[standard]==0.0.5 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:d30e1239c6f46fcb95e606f02cdda59a1e2fa778a54b64686b3ff27f6211ff9f \
     --hash=sha256:e94d847524648c748a5350673546bbf9bcaeb086b33c24f2e82e021436866a46
+fastapi-versioning==0.10.0 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:5c18ea4e9ae1afd39c9e5bed1c240bf1cabdc75217579af78249ccb651c7b5b5 \
+    --hash=sha256:afe0ad7a56383b884c399341260bd3301b40e5a1cf9f6dc4211a349489087e1b
+fastapi==0.115.0 ; python_version >= "3.12" and python_version < "4.0" \
+    --hash=sha256:17ea427674467486e997206a5ab25760f6b09e069f099b96f5b55a32fb6f1631 \
+    --hash=sha256:f93b4ca3529a8ebc6fc3fcf710e5efa8de3df9b41570958abf1d97d843138004
 fastapi[standard]==0.115.0 ; python_version >= "3.12" and python_version < "4.0" \
     --hash=sha256:17ea427674467486e997206a5ab25760f6b09e069f099b96f5b55a32fb6f1631 \
     --hash=sha256:f93b4ca3529a8ebc6fc3fcf710e5efa8de3df9b41570958abf1d97d843138004

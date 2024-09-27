@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 fastapi = {extras = ["standard"], version = "^0.115.0"}
 uvicorn = {extras = ["standard"], version = "^0.30.6"}
+fastapi-versioning = "^0.10.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -16,6 +17,7 @@ docker = "^7.1.0"
 jupyter = "^1.1.1"
 requests = "^2.32.3"
 kubernetes = "^31.0.0"
+pygments = "^2.18.0"
 
 [build-system]
 requires = ["poetry-core"]

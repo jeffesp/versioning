@@ -3,7 +3,9 @@ from enum import Enum
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FastAPI(title="Jokes Service", version="1.0.0")
+from fastapi_versioning import VersionedFastAPI, version
+
+app = FastAPI(title="Jokes Service")
 
 
 class JokeType(int, Enum):
@@ -37,7 +39,34 @@ class JokeRequest(BaseModel):
     joke_type: JokeType
 
 
+class ContinuedJoke(Joke):
+    continue_token: str | None
+
+    def __init__(
+        self, joke_type: JokeType, continue_token: str | None = None, **kwargs
+    ) -> None:
+        super().__init__(joke_type=joke_type, continue_token=continue_token, **kwargs)
+
+
 @app.get("/tell/joke")
+@version(1,0)
 def tell_joke(joke_type: JokeType = JokeType.JOKE_TYPE_UNSPECIFIED):
     return Joke(joke_type)
 
+
+@app.post("/tell/joke")
+@version(1,1)
+def tell_joke_post(joke: JokeRequest):
+    return Joke(joke_type=joke.joke_type)
+
+
+@app.get("/tell/joke")
+@version(2,0)
+def tell_joke2(
+    joke_type: JokeType = JokeType.JOKE_TYPE_UNSPECIFIED,
+    continue_token: str | None = None,
+):
+    return ContinuedJoke(joke_type, continue_token=continue_token)
+
+
+app = VersionedFastAPI(app, version_format="{major}.{minor}", prefix_format="/v{major}.{minor}")

@@ -640,6 +640,21 @@ uvicorn = {version = ">=0.15.0", extras = ["standard"]}
 standard = ["uvicorn[standard] (>=0.15.0)"]
 
 [[package]]
+name = "fastapi-versioning"
+version = "0.10.0"
+description = "api versioning for fastapi web applications"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "fastapi_versioning-0.10.0-py3-none-any.whl", hash = "sha256:afe0ad7a56383b884c399341260bd3301b40e5a1cf9f6dc4211a349489087e1b"},
+    {file = "fastapi_versioning-0.10.0.tar.gz", hash = "sha256:5c18ea4e9ae1afd39c9e5bed1c240bf1cabdc75217579af78249ccb651c7b5b5"},
+]
+
+[package.dependencies]
+fastapi = ">=0.56.0"
+starlette = "*"
+
+[[package]]
 name = "fastjsonschema"
 version = "2.20.0"
 description = "Fastest Python implementation of JSON schema"
@@ -2987,4 +3002,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "d60fd6f2c995d98d1c9d78831d5f875cec2c9c22b375d12bd5e22bae39ffe7a9"
+content-hash = "1e6277557733ca44738762a05fd9817fd475c44fa9d76a386d1fb9b66ae29ed2"

@@ -49,7 +49,7 @@ spec:
     spec:
       containers:
         - name: http-jokes-app
-          image: localhost:5001/http-jokes:1.0.0
+          image: localhost:5001/http-jokes:latest
           imagePullPolicy: Always
           ports:
             - name: "app"

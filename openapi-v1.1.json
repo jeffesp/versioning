@@ -2,11 +2,11 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Jokes Service",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "servers": [
     {
-      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v1.0"
+      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v1.1"
     }
   ],
   "paths": {
@@ -44,6 +44,40 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Tell Joke Post",
+        "operationId": "tell_joke_post_tell_joke_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JokeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -61,6 +95,18 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "JokeRequest": {
+        "properties": {
+          "joke_type": {
+            "$ref": "#/components/schemas/JokeType"
+          }
+        },
+        "type": "object",
+        "required": [
+          "joke_type"
+        ],
+        "title": "JokeRequest"
       },
       "JokeType": {
         "type": "integer",
@@ -110,30 +156,20 @@
   },
   "x-tyk-api-gateway": {
     "info": {
-      "versioning": {
-        "default": "v5.8.0",
-        "enabled": true,
-        "key": "x-api-version",
-        "location": "header",
-        "name": "v5.8.0",
-        "versions": [],
-        "fallbackToDefault": true,
-        "stripVersioningData": false
-      },
-      "name": "http-jokes-api",
+      "name": "http-jokes-api-v1.1",
       "state": {
         "active": true,
-        "internal": false
+        "internal": true
       }
     },
     "server": {
       "listenPath": {
         "strip": true,
-        "value": "/jokes/"
+        "value": "/jokes-internalv1.1/"
       }
     },
     "upstream": {
-      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v1.0"
+      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v1.1"
     }
   }
 }
