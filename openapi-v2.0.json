@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v1.1"
+      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v2.0"
     }
   ],
   "paths": {
@@ -156,7 +156,7 @@
   },
   "x-tyk-api-gateway": {
     "info": {
-      "name": "http-jokes-api-v1.1",
+      "name": "http-jokes-api-v2.0",
       "state": {
         "active": true,
         "internal": true
@@ -165,11 +165,11 @@
     "server": {
       "listenPath": {
         "strip": true,
-        "value": "/jokes-internalv1.1/"
+        "value": "/jokes-internalv2.0/"
       }
     },
     "upstream": {
-      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v1.1"
+      "url": "http://http-jokes.http-jokes.svc.cluster.local:8080/v2.0"
     }
   }
 }

@@ -55,13 +55,13 @@ def tell_joke(joke_type: JokeType = JokeType.JOKE_TYPE_UNSPECIFIED):
 
 
 @app.post("/tell/joke")
-@version(1,1)
+@version(2,0)
 def tell_joke_post(joke: JokeRequest):
     return Joke(joke_type=joke.joke_type)
 
 
 @app.get("/tell/joke")
-@version(2,0)
+@version(2,1)
 def tell_joke2(
     joke_type: JokeType = JokeType.JOKE_TYPE_UNSPECIFIED,
     continue_token: str | None = None,
